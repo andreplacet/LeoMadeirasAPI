@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using leoMadeirasAPI.Models;
-using leoMadeirasAPI.Services;
-using leoMadeirasAPI.RegexTools;
 using leoMadeirasAPI.Tools;
 using System;
 using leoMadeirasAPI.interfaces;
