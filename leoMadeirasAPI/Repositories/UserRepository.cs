@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using leoMadeirasAPI.data;
 using leoMadeirasAPI.interfaces;
@@ -17,24 +15,28 @@ namespace leoMadeirasAPI.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<dynamic> GetUser(User user)
+        public async Task<User> GetUser(string username, string password)
         {
             try
-            {
-                _dbContext.Add(user);
+            {   // validação feita aqui, somente pra nao permitir passar valores invalidos
+                // o correto seria uma função apenas pra criar o usuario, mas como estou usando um banco em memoria
+                // fiz desse jeito
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)
+                                        || username == "string" || password == "string")
+                {
+                    return null;
+
+                }
+                _dbContext.Add(new User(username, password));
                 await _dbContext.SaveChangesAsync();
 
-                var validUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == user.Username && x.Password == user.Password);
+                var validUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username && x.Password == password);
                 return validUser;
             }
             catch (Exception)
             {
                 return null;
             }
-            //var users = new List<User>();
-            //users.Add(new User { Id = 1, Username = "andre", Password = "a@jkwm!q1paCm8c" });
-            //users.Add(new User { Id = 2, Username = "luiz", Password = "123andre" });
-            //return users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower() || x.Password.ToLower() == x.Password.ToLower());
         }
     }
 }

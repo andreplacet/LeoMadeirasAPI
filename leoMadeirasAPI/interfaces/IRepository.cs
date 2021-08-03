@@ -5,6 +5,6 @@ namespace leoMadeirasAPI.interfaces
 {
     public interface IRepository
     {
-        public Task<dynamic> GetUser(User user);
+        public Task<User> GetUser(string username, string password);
     }
 }

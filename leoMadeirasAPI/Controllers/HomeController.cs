@@ -12,13 +12,13 @@ namespace leoMadeirasAPI.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class HomeController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IRepository _repository;
         private readonly ITokenService _tokenservice;
         private readonly IPassword _pwdvalidate;
 
-        public HomeController(IRepository repository, ITokenService tokenservice, IPassword pwdvalidate)
+        public AuthController(IRepository repository, ITokenService tokenservice, IPassword pwdvalidate)
         {
             _repository = repository;
             _tokenservice = tokenservice;
@@ -34,23 +34,23 @@ namespace leoMadeirasAPI.Controllers
         }
 
         [HttpPost]
-        [Route("geratoken")]
+        [Route("auth/geratoken")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> GeraToken([FromBody] User model)
+        public async Task<ActionResult<dynamic>> GeraToken([FromBody] UserModel model)
         {
-            var user = _repository.GetUser(model).Result;
+            var user = _repository.GetUser(model.Username, model.Password).Result;
 
             if (user == null)
             {
-                return Ok(new { message = "Usuario invalido" });
+                return BadRequest();
             }
 
             user.Token = _tokenservice.GenerateToken(user);
-            return new { Id = user.Id, Username = user.Username, Password = user.Password, Token = user.Token, ExpireDate = user.ExpireTokenDate };
+            return new { Id = user.Id, Username = user.Username, Password = user.Password, Token = user.Token, autenticado = true, ExpireDate = user.ExpireTokenDate.ToString() };
         }
 
         [HttpPost]
-        [Route("valida-senha")]
+        [Route("auth/valida-senha")]
         [Authorize]
         public async Task<ActionResult<dynamic>> ValidarSenha([FromBody] Senha password)
         {

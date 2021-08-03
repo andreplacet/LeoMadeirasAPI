@@ -19,7 +19,7 @@ namespace leoMadeirasTests.TestesDeUnidade
         public void test_gerar_token()
         {
             //Arrange
-            var user = _repository.GetUser("andre", "a@jkwm!q1paCm8c");
+            var user = new User("andre", "a@jkwm!q1paCm8c");
 
             //Act
             user.Token = TokenService.GenerateToken(user);
@@ -32,8 +32,7 @@ namespace leoMadeirasTests.TestesDeUnidade
         public void teste_validar_senha_valida()
         {
             //Arrange
-            var user = _repository.GetUser("andre", "a@jkwm!q1paCm8c");
-
+            var user = new User("andre", "a@jkwm!q1paCm8c");
             //Act
             var senhaValida = _regex.ValidarSenha(user.Password);
 
@@ -44,9 +43,6 @@ namespace leoMadeirasTests.TestesDeUnidade
         [Fact]
         public void teste_gerar_senha()
         {
-            //Arrange
-            var user = _repository.GetUser("andre", "a@jkwm!q1paCm8c");
-
             //Act
             var senhaGerada = GeradorDeSenha.GerarSenha();
 

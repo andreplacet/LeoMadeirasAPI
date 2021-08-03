@@ -29,9 +29,9 @@ namespace leoMadeirasAPI
 
             services.AddControllers();
 
-            services.AddTransient<IRepository, UserRepository>();
-            services.AddTransient<ITokenService, TokenService>();
-            services.AddTransient<IPassword, RegexValidator>();
+            services.AddScoped<IRepository, UserRepository>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPassword, RegexValidator>();
 
             services.AddSwaggerGen(c =>
             {

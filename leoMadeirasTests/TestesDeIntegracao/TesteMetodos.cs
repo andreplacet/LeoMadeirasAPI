@@ -31,7 +31,7 @@ namespace leoMadeirasTests
         public async Task teste_metodo_gera_token(string username, string password)
         {
             //Arrange
-            var user = _repository.GetUser(username, password);
+            var user = new UserModel(username, password);
             //Act
             var response = await _client.PostAsJsonAsync("api/geratoken", user);
             //Assert
@@ -43,7 +43,7 @@ namespace leoMadeirasTests
         public async Task teste_metodo_valida_senha(string username, string password)
         {
             //Arrange
-            var user = _repository.GetUser(username, password);
+            var user = new UserModel(username, password);
             var response = await _client.PostAsJsonAsync("api/geratoken", user);
             var userDataResponse = response.Content.ReadFromJsonAsync<User>().Result;
 
@@ -63,7 +63,7 @@ namespace leoMadeirasTests
         public async Task teste_metodo_gera_senha(string username, string password)
         {
             //Arrange
-            var user = _repository.GetUser(username, password);
+            var user = new UserModel(username, password);
             var responseToken = await _client.PostAsJsonAsync("api/geratoken", user);
             var userDataResponse = responseToken.Content.ReadFromJsonAsync<User>().Result;
 

@@ -16,7 +16,7 @@ namespace leoMadeirasAPI.Services
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
 
             DateTime expireTime = DateTime.UtcNow.AddMinutes(5);
-            user.ExpireTokenDate = expireTime;
+            user.ExpireTokenDate = expireTime.ToLocalTime();
 
             var tokerDescriptor = new SecurityTokenDescriptor()
             {
