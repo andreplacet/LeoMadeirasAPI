@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using leoMadeirasAPI.RegexTools;
 
 namespace leoMadeirasAPI.Tools
 {
@@ -33,15 +32,6 @@ namespace leoMadeirasAPI.Tools
             }
 
             var senha = res.ToString();
-
-            var reg = new RegexValidator();
-
-            var verifica = reg.ValidarSenha(senha);
-
-            while (!verifica)
-            {
-                senha = GerarSenha();
-            }
 
             return senha;
         }

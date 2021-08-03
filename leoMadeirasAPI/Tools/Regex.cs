@@ -1,8 +1,9 @@
 using System.Text.RegularExpressions;
+using leoMadeirasAPI.interfaces;
 
 namespace leoMadeirasAPI.RegexTools
 {
-    public class RegexValidator
+    public class RegexValidator : IPassword
     {
         public bool ValidarSenha(string password)
         {
